@@ -1001,13 +1001,22 @@ int main(int argc, char** argv)
       }
    }
 #if defined(__SIZEOF_INT128__)
-   maxHosts = (unsigned __int128)pow(2.0, (double)hostBits) - reservedHosts;
-#else
-   if(hostBits <= 64) {
-      maxHosts = (unsigned long long)pow(2.0, (double)hostBits) - reservedHosts;
+   // Avoid out-of-range floating-point conversion and full-width shifts.
+   if(hostBits == 128) {
+      maxHosts = reservedHosts ? (~(unsigned __int128)0 - (reservedHosts - 1)) : 0;
    }
    else {
-      maxHosts = 0;   // Not enough accuracy for such a large number!
+      maxHosts = ((unsigned __int128)1 << hostBits) - reservedHosts;
+   }
+#else
+   if(hostBits < 64) {
+      maxHosts = (1ULL << hostBits) - reservedHosts;
+   }
+   else if(hostBits == 64 && reservedHosts > 0) {
+      maxHosts = ~0ULL - (reservedHosts - 1);
+   }
+   else {
+      maxHosts = 0;   // Display the exact symbolic expression instead.
    }
 #endif
 

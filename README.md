@@ -382,3 +382,8 @@ To provide a translation of SubNetCalc into your language, apply the following s
 * [Wireshark](https://www.wireshark.org/)
 * [Linux Weekly News](https://lwn.net)
 * [Linux.org](https://www.linux.org)
+
+
+## Privacy-conscious numeric calculations
+
+Use numeric inputs with `-n -g -c` to disable reverse DNS, local GeoIP lookups and colour output, for example `subnetcalc -n -g -c 192.0.2.1/24`. Hostname inputs may still require forward DNS resolution; this is not a general network isolation guarantee. Avoid submitting customer addresses to unapproved resolvers.

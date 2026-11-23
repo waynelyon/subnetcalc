@@ -19,11 +19,15 @@
 name: Ubuntu Linux CI Tests
 
 on:
+  pull_request:
   push:
     branches:
       - master
       - main
       - dreibh/github-actions
+
+permissions:
+  contents: read
 
 jobs:
 
@@ -52,8 +56,8 @@ jobs:
     container:
       image: ${{ matrix.image }}
     steps:
-      # NOTE: actions/checkout@v6 does not work for old Ubuntu 18.04!
-      - uses: actions/checkout@v6
+      # NOTE: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6 does not work for old Ubuntu 18.04!
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Build
         shell: bash
         run: |
@@ -91,11 +95,11 @@ jobs:
     name: ${{ matrix.label }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       # NOTE: dreibh/run-on-arch-action provides the upstream
       #       uraimo/run-on-arch-action action, with additional dockerfiles
       #       needed for the builds here!
-      - uses: dreibh/run-on-arch-action@dreibh/tests
+      - uses: dreibh/run-on-arch-action@27ed23237c810d2599969bd7aced057f5542e1bf # dreibh/tests
         name: Build
         id: build
         with:
@@ -114,7 +118,7 @@ jobs:
     name: Ubuntu Packaging
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Packaging
         shell: bash
         run: |
