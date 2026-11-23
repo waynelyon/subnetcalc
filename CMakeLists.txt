@@ -32,7 +32,7 @@ PROJECT(subnetcalc LANGUAGES C CXX)
 
 SET(BUILD_MAJOR "2")
 SET(BUILD_MINOR "7")
-SET(BUILD_PATCH "5")
+SET(BUILD_PATCH "6")
 SET(BUILD_VERSION ${BUILD_MAJOR}.${BUILD_MINOR}.${BUILD_PATCH})
 
 SET(CMAKE_CXX_STANDARD          17)
@@ -106,6 +106,8 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "SunOS")
+   MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
+ELSEIF (CMAKE_SYSTEM_NAME MATCHES "GNU")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
    MESSAGE(STATUS "${CMAKE_SYSTEM_NAME} supported")
@@ -201,6 +203,7 @@ IF (NOT HAVE_NI_IDN)
    ELSE()
       MESSAGE(FATAL_ERROR
               "Cannot find IDN2 library! Try:\n"
+              " * Alpine:  sudo apk add libidn2-dev\n"
               " * FreeBSD: sudo pkg install -y libidn2\n"
               " * NetBSD:  sudo pkgin -y install libidn2\n"
               " * OpenBSD: sudo pkg_add libidn2\n"

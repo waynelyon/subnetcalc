@@ -28,3 +28,12 @@ $TEST ./subnetcalc 64:ff9b::1.2.3.4 96 -n
 $TEST ./subnetcalc 64:ff9b:1:2:3:4:5.6.7.8 96 -n
 
 $TEST ./subnetcalc www.heise.de 24
+
+# Verify address-count boundary output (English locale, no DNS or GeoIP).
+export LC_ALL=C
+out=$(./subnetcalc -n -g -c 2001:db8::1/0)
+printf '%s\n' "$out" | grep -Eq '340282366920938463463374607431768211455|2\^128 - 1'
+out=$(./subnetcalc -n -g -c 192.0.2.0/31)
+printf '%s\n' "$out" | grep -Eq 'Max\. Hosts[[:space:]]*=[[:space:]]*2([[:space:]]|$)'
+out=$(./subnetcalc -n -g -c 2001:db8::1/128)
+printf '%s\n' "$out" | grep -Eq 'Max\. Hosts[[:space:]]*=[[:space:]]*1([[:space:]]|$)'

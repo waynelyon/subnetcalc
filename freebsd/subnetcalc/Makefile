@@ -1,5 +1,5 @@
 PORTNAME=	subnetcalc
-DISTVERSION=	2.7.5
+DISTVERSION=	2.7.6
 CATEGORIES=	net
 MASTER_SITES=	https://www.nntb.no/~dreibh/subnetcalc/download/
 
@@ -15,7 +15,7 @@ LIB_DEPENDS=	libidn2.so:dns/libidn2
 USES=		cmake tar:xz
 
 OPTIONS_DEFINE=		GEOIP NLS
-OPTIONS_DEFAULT=	${OPTIONS_DEFINE}
+OPTIONS_DEFAULT=	GEOIP
 OPTIONS_SUB=		yes
 
 GEOIP_DESC=		Build with GeoIP support
